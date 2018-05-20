@@ -18,7 +18,7 @@ jobs:
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz
             mv /tmp/docker/* /usr/bin
       - run:
-          name: Building and Push Docker images
+          name: Building and Pushing Docker images
           command: |
             TAG="dev-master"
             if [[ ! -z ${CIRCLE_TAG} ]]; then TAG=${CIRCLE_TAG}; fi
