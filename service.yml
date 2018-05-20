@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: glagol-io-svc
+  labels:
+    app: glagol-io
+    revision: ${REVISION}
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 35.204.215.192
+  ports:
+  - port: 80
+    protocol: TCP
+  selector:
+    app: glagol-io

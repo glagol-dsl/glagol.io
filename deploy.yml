@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: glagol-io-deploy
+  labels:
+    revision: ${REVISION}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glagol-io
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: glagol-io
+        revision: ${REVISION}
+    spec:
+      containers:
+      - name: glagol-io-pod
+        image: "glagol/glagol.io:dev-master"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
