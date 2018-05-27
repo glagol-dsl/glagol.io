@@ -41,8 +41,8 @@ return [
 
     'guards' => [
         'api' => [
-            'driver' => 'api',
-            'provider' => 'eloquent',
+            'driver' => 'passport',
+            'provider' => 'users',
         ],
     ],
 
@@ -64,7 +64,8 @@ return [
     */
 
     'providers' => [
-        'eloquent' => [
+        'users' => [
+            'driver' => 'eloquent',
             'model' => \GlagolCloud\Modules\User\User::class
         ]
     ],

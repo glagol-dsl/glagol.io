@@ -8,6 +8,8 @@ use GlagolCloud\Modules\User\Values\PasswordHash;
 use GlagolCloud\Modules\User\Values\PlainPassword;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Hashing\HashManager;
 use Laravel\Lumen\Auth\Authorizable;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +21,7 @@ use Laravel\Passport\HasApiTokens;
  * @property int id
  * @property Email email
  * @property PasswordHash password
+ * @property Collection|PublicKey[] publicKeys
  * @property DateTimeInterface created_at
  * @property DateTimeInterface updated_at
  */
@@ -37,6 +40,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $user->setPassword($password, $hasher);
 
         return $user;
+    }
+
+    public function publicKeys(): HasMany
+    {
+        return $this->hasMany(PublicKey::class, 'user_id');
     }
 
     public function validateForPassportPasswordGrant(string $password): bool

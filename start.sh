@@ -9,5 +9,6 @@ if [ $1 = "--dev" ]; then
     && echo 'zend_extension=xdebug.so' > /usr/local/etc/php/conf.d/xdebug.ini
 fi
 
-php artisan passport:keys -q \
+php artisan migrate \
+&& php artisan passport:keys -q \
 && apache2-foreground
