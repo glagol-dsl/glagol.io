@@ -11,6 +11,6 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return 'Hello world';
-});
+/** @var \Laravel\Lumen\Routing\Router $router */
+$router->post('/api/sign-up', 'SignUpController@signUp');
+$router->post('/api/sign-in', ['middleware' => 'with_client_credentials', 'uses' => 'SignInController@issueToken']);

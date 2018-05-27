@@ -30,6 +30,11 @@ spec:
         env:
         - name: APP_ENV
           value: production
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: glagol-io
+              key: app_key
         - name: APP_DEBUG
           value: '0'
         - name: APP_TIMEZONE

@@ -1,9 +1,11 @@
 FROM php:7.2-apache
 
 RUN apt-get update -y \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
         $PHPIZE_DEPS \
         zlib1g-dev \
+        libsodium-dev \
+    && pecl install libsodium mcrypt xdebug \
     && docker-php-ext-install pdo pdo_mysql mbstring zip \
     && docker-php-source delete \
     && rm -rf /tmp/pear ~/.pearrc \
@@ -20,6 +22,7 @@ RUN apt-get update -y \
 
 COPY virtual_host.conf /etc/apache2/sites-available/000-default.conf
 COPY app /var/www/html
+COPY start.sh /usr/local/bin/start
 
 RUN composer install --no-interaction \
     --no-progress \
@@ -27,3 +30,5 @@ RUN composer install --no-interaction \
     --no-suggest \
     --no-dev \
     --prefer-dist
+
+ENTRYPOINT ["start"]
