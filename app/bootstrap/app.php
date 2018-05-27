@@ -23,17 +23,19 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-unset(
-    $app->availableBindings['log'],
-    $app->availableBindings['Psr\Log\LoggerInterface']
-);
-
 $app->withFacades();
 
 $app->withEloquent();
 
 $app->configure('auth');
 $app->configure('logging');
+
+if (config('logging.rollbar.enabled')) {
+    unset(
+        $app->availableBindings['log'],
+        $app->availableBindings['Psr\Log\LoggerInterface']
+    );
+}
 
 /*
 |--------------------------------------------------------------------------
