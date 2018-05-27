@@ -35,6 +35,16 @@ spec:
             secretKeyRef:
               name: glagol-io
               key: app_key
+        - name: PASSWORD_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: glagol-io
+              key: client_id
+        - name: PASSWORD_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: glagol-io
+              key: client_secret
         - name: APP_DEBUG
           value: '0'
         - name: APP_TIMEZONE
