@@ -16,6 +16,7 @@ class CreatePublicKeysTable extends Migration
         Schema::create('public_keys', function (Blueprint $table) {
             $table->increments('id');
             $table->binary('key');
+            $table->string('fingerprint_old');
             $table->string('fingerprint');
             $table->integer('user_id');
             /** @noinspection PhpUndefinedMethodInspection */

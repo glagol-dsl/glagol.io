@@ -51,7 +51,8 @@ class PublicKey extends Model
     public function setKeyAttribute(RSA $key): void
     {
         $this->attributes['key'] = $key->getPublicKey(RSA::PUBLIC_FORMAT_OPENSSH);
-        $this->attributes['fingerprint'] = $key->getPublicKeyFingerprint();
+        $this->attributes['fingerprint_old'] = $key->getPublicKeyFingerprint();
+        $this->attributes['fingerprint'] = $key->getPublicKeyFingerprint('sha256');
     }
 
     public function getKeyAttribute(): RSA
