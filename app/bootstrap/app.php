@@ -23,6 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
+unset(
+    $app->availableBindings['log'],
+    $app->availableBindings['Psr\Log\LoggerInterface']
+);
+
 $app->withFacades();
 
 $app->withEloquent();
