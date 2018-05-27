@@ -6,3 +6,4 @@
 /app/.phpstorm.meta.php
 /docker-compose.override.yml
 *.key
+*.sqlite

@@ -31,6 +31,16 @@ jobs:
               docker push glagol/glagol.io:${TAG}; \
               docker push glagol/glagol.io:latest; \
             fi
+  tests:
+    docker:
+      - image: glagol/glagol.io:dev-master
+    working_directory: /var/www/html
+    steps:
+      - run:
+          name: Running tests
+          command: |
+            touch database/database.sqlite
+            vendor/bin/phpunit
   deploy-gkp:
     docker:
       - image: google/cloud-sdk:alpine
@@ -63,6 +73,10 @@ workflows:
   build-and-deploy:
     jobs:
       - build:
+          filters:
+            tags:
+              ignore: /^ignore-.*/
+      - tests:
           filters:
             tags:
               ignore: /^ignore-.*/
