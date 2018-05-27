@@ -28,6 +28,7 @@ $app->withFacades();
 $app->withEloquent();
 
 $app->configure('auth');
+$app->configure('logging');
 
 /*
 |--------------------------------------------------------------------------

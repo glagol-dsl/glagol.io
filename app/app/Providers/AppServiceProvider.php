@@ -8,6 +8,8 @@ use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Hashing\HashManager;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Lumen\Application;
+use Psr\Log\LoggerInterface;
+use Rollbar\RollbarLogger;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(AuthenticatedUser::class, function (Application $app) {
             $user = $app->make(Guard::class)->user();
             return AuthenticatedUser::query()->findOrFail($user->id);
+        });
+
+        $this->app->alias('log', LoggerInterface::class);
+        $this->app->singleton(LoggerInterface::class, function () {
+            return new RollbarLogger(config('logging.rollbar'));
         });
     }
 }
